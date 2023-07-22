@@ -1,0 +1,12 @@
+/* Custom CSS for carousel */
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 8px;
+  }
+  
+  .carousel-item img {
+    width: 100%;
+    height: auto;
+  }
+  
