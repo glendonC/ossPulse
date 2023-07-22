@@ -1,16 +1,11 @@
-from flask import Flask, jsonify
-app = Flask(__name__)
+from flask import Flask
+from .active_projects import active_projects
+from .top_contributors import top_contributors
+from .languages import languages
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
-
-@app.route('/api/contributors', methods=['GET'])
-def get_contributors():
-    # Fetch and process data here...
-    data = {"contributors": [{"name": "Alice", "contributions": 100}, {"name": "Bob", "contributions": 80}]}
-    return jsonify(data)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+def create_app():
+    app = Flask(__name__)
+    app.register_blueprint(active_projects)
+    app.register_blueprint(top_contributors)
+    app.register_blueprint(languages)
+    return app

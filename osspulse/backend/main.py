@@ -1,15 +1,14 @@
-from flask import Flask
+from api.app import create_app
 
-app = Flask(__name__)
+app = create_app()
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
+@app.route("/")
+def home():
+    return "Hello, World!"
 
-@app.route('/api/top-repositories')
-def get_top_repositories():
-    # Your code to fetch and process data from the GitHub API
-    return
+@app.route("/test")
+def test():
+    return "Test successful!"
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
