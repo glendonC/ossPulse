@@ -2,6 +2,12 @@ import os
 import requests
 from flask import Blueprint, jsonify
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
+my_secret = os.getenv('MY_SECRET')
+
 languages = Blueprint('languages', __name__)
 
 @languages.route('/languages', methods=['GET'])

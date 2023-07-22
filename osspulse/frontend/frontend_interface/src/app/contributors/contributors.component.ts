@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-interface Contributor {
-  name: string;
-  contributions: number;
-}
-
-interface ContributorsResponse {
-  contributors: Contributor[];
-}
+import { Contributor } from '../models/contributors';
 
 @Component({
   selector: 'app-contributors',
@@ -21,8 +13,9 @@ export class ContributorsComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get<ContributorsResponse>('http://localhost:4200/api/contributors').subscribe(data => {
-      this.contributors = data.contributors;
+    this.http.get<Contributor[]>('http://localhost:5000/api/contributors').subscribe(data => {
+      console.log(data);
+      this.contributors = data;
     });
   }
 }
