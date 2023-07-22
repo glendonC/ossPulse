@@ -6,7 +6,7 @@ languages = Blueprint('languages', __name__)
 
 @languages.route('/languages', methods=['GET'])
 def get_languages():
-    headers = {'Authorization': f'token {os.getenv("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")}'}
+    headers = {'Authorization': f'token {os.getenv("MY_SECRET")}'}
     # Fetches the 100 most active public repositories
     response = requests.get('https://api.github.com/search/repositories?q=stars:%3E1&sort=stars&order=desc', headers=headers)
     repos = response.json()['items']
