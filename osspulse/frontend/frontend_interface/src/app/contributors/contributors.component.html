@@ -1,7 +1,9 @@
-<ul>
-  <li *ngFor="let contributor of contributors">
-    <img [src]="contributor?.avatar_url" alt="Avatar">
-    <p>Name: {{contributor.login}}</p>
-    <p>Contributions: {{contributor.contributions}}</p>
-  </li>
-</ul>
+<div class="contributors-container">
+  <div class="contributor-card" *ngFor="let contributor of contributors">
+    <img [src]="contributor.avatar_url" alt="Avatar" class="avatar">
+    <div class="contributor-info">
+      <h3>{{ contributor.login }}</h3>
+      <p>Contributions: {{ contributor.contributions }}</p>
+    </div>
+  </div>
+</div>
