@@ -36,3 +36,33 @@
     font-size: 14px;
   }
   
+  .description, .trend-analysis {
+    text-align: center;
+    margin: 30px 0;
+  }
+  
+  .description h2, .trend-analysis h2 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .description p, .trend-analysis p {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  
+  /* Description and Trend Analysis styles ... (existing code) */
+
+.chart {
+    text-align: center;
+    margin: 30px 0;
+  }
+  
+  .chart h2 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  
+
+  

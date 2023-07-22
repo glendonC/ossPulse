@@ -1,4 +1,15 @@
-<div class="contributors-container">
+<!-- Description Section -->
+<section class="description">
+  <h2>Welcome to OSS Pulse</h2>
+  <p>
+    OSS Pulse is a web application that provides insights into open-source software contributions on GitHub. 
+    This platform allows you to explore the top contributors and their contributions to various repositories. 
+    Stay up-to-date with the latest trends and visualize open-source activity with our powerful analytics tools.
+  </p>
+</section>
+
+<!-- Top Contributors Section -->
+<section class="contributors-container">
   <div class="contributor-card" *ngFor="let contributor of contributors">
     <img [src]="contributor.avatar_url" alt="Avatar" class="avatar">
     <div class="contributor-info">
@@ -6,4 +17,21 @@
       <p>Contributions: {{ contributor.contributions }}</p>
     </div>
   </div>
-</div>
+</section>
+
+<!-- Chart Section -->
+<section class="chart">
+  <h2>Contributions Chart</h2>
+  <canvas id="contributionsChart" width="400" height="200"></canvas>
+</section>
+
+
+
+<!-- Trend Analysis and Visualization Section -->
+<section class="trend-analysis">
+  <h2>Trend Analysis and Visualization</h2>
+  <p>
+    Our trend analysis feature allows you to explore trends in open-source contributions over time. 
+    Visualize the growth of repositories, the most active contributors, and more with interactive charts and graphs.
+  </p>
+</section>
