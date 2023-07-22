@@ -6,6 +6,6 @@ active_projects = Blueprint('active_projects', __name__)
 
 @active_projects.route('/active_projects', methods=['GET'])
 def get_active_projects():
-    headers = {'Authorization': f'token {os.getenv("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")}'}
+    headers = {'Authorization': f'token {os.getenv("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")}'}
     response = requests.get('https://api.github.com/search/repositories?q=stars:%3E1&sort=stars&order=desc', headers=headers)
     return jsonify(response.json())

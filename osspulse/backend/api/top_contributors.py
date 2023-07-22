@@ -6,7 +6,7 @@ top_contributors = Blueprint('top_contributors', __name__)
 
 @top_contributors.route('/top_contributors', methods=['GET'])
 def get_top_contributors():
-    headers = {'Authorization': f'token {os.getenv("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")}'}
+    headers = {'Authorization': f'token {os.getenv("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")}'}
     # Fetches the 100 most active public repositories
     response = requests.get('https://api.github.com/search/repositories?q=stars:%3E1&sort=stars&order=desc', headers=headers)
     repos = response.json()['items']
