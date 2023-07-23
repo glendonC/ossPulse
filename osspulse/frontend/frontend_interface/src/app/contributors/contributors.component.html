@@ -22,6 +22,12 @@
 <!-- Chart Section -->
 <section class="chart">
   <h2>Contributions Chart</h2>
+  <div class="chart-type-selector">
+    <label for="chartType">Chart Type:</label>
+    <select id="chartType" (change)="onChartTypeChange($event)">
+      <option *ngFor="let type of validChartTypes" [value]="type" [selected]="chartType === type">{{ type }}</option>
+    </select>
+  </div>
   <canvas id="contributionsChart" width="400" height="200"></canvas>
 </section>
 
@@ -34,4 +40,15 @@
     Our trend analysis feature allows you to explore trends in open-source contributions over time. 
     Visualize the growth of repositories, the most active contributors, and more with interactive charts and graphs.
   </p>
+
+  <div>
+    <h2>Contributions Chart</h2>
+    <canvas id="contributionsChart" width="400" height="200"></canvas>
+  
+    <!-- Add data analysis results to the template -->
+    <div>
+      <p>Mean Contributions: {{ meanContributions }}</p>
+      <p>Median Contributions: {{ medianContributions }}</p>
+    </div>
+  </div>
 </section>
