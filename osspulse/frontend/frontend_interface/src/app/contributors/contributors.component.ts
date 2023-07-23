@@ -1,9 +1,13 @@
-// contributors.component.ts
-
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Contributor } from '../models/contributors';
 import { Chart, registerables, ChartTypeRegistry } from 'chart.js';
+import * as regression from 'regression';
+
+import { ContributorsService } from './contributors.service'; // Import the service
+
+// Define the DataPoint type
+type DataPoint = [number, number];
 
 @Component({
   selector: 'app-contributors',
@@ -13,8 +17,9 @@ import { Chart, registerables, ChartTypeRegistry } from 'chart.js';
 export class ContributorsComponent implements OnInit {
   contributors: Contributor[] = [];
   chart: Chart | null = null; // Initialize chart property to null
-  meanContributions: number = 0; 
-  medianContributions: number = 0; 
+  meanContributions: number = 0;
+  medianContributions: number = 0;
+  contributionForecast: number[] = [];
 
   // Define the valid chart types
   validChartTypes: Array<keyof ChartTypeRegistry> = ['bar', 'line', 'pie', 'doughnut', 'polarArea'];
@@ -22,22 +27,20 @@ export class ContributorsComponent implements OnInit {
   // Default chart type
   chartType: keyof ChartTypeRegistry = 'bar';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private contributorsService: ContributorsService) {
     // Register Chart.js modules (necessary for some chart types)
     Chart.register(...registerables);
   }
 
   ngOnInit(): void {
-    this.http.get<Contributor[]>('http://localhost:5000/api/contributors').subscribe(
-      data => {
-        console.log(data);
+    // Fetch contributors data from the service
+    this.contributorsService.getContributors().subscribe(
+      (data) => {
         this.contributors = data;
-        // Call the function to create charts once the data is fetched
         this.createChart();
-        // Perform data analysis and integrate the results into the chart
-        this.performDataAnalysis();
+        this.predictContributionsTrends();
       },
-      error => {
+      (error) => {
         console.error('Error fetching contributors:', error);
       }
     );
@@ -52,9 +55,8 @@ export class ContributorsComponent implements OnInit {
       this.chart.destroy();
     }
 
-    const contributionsData = this.contributors.map(contributor => contributor.contributions);
-    const contributorsNames = this.contributors.map(contributor => contributor.login);
-    
+    const contributionsData = this.contributors.map((contributor) => contributor.contributions);
+    const contributorsNames = this.contributors.map((contributor) => contributor.login);
 
     const colors = this.generateDistinctColors(this.contributors.length);
 
@@ -62,29 +64,42 @@ export class ContributorsComponent implements OnInit {
       type: this.chartType, // Use the selected chart type
       data: {
         labels: contributorsNames,
-        datasets: [{
-          label: 'Contributions',
-          data: contributionsData,
-          backgroundColor: colors, // Use distinct colors for each user
-          borderColor: 'rgba(75, 192, 192, 1)',
-          borderWidth: 1
-        }]
+        datasets: [
+          {
+            label: 'Contributions',
+            data: contributionsData,
+            backgroundColor: colors, // Use distinct colors for each user
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+          },
+        ],
       },
       options: {
         scales: {
           y: {
-            beginAtZero: true
-          }
-        }
-      }
+            beginAtZero: true,
+          },
+        },
+      },
     });
   }
-  performDataAnalysis(): void {
+
+  predictContributionsTrends(): void {
     // Example: Calculate mean and median of contributions
-    const contributionsData = this.contributors.map(contributor => contributor.contributions);
+    const contributionsData = this.contributors.map((contributor) => contributor.contributions);
     this.meanContributions = contributionsData.reduce((a, b) => a + b, 0) / contributionsData.length;
     this.medianContributions = contributionsData.sort((a, b) => a - b)[Math.floor(contributionsData.length / 2)];
 
+    // Perform linear regression on contributions data
+    const dataPoints: DataPoint[] = contributionsData.map((contribution, index) => [index, contribution]);
+    const result = regression.linear(dataPoints);
+    const slope = result.equation[0];
+    const intercept = result.equation[1];
+
+    // Predict future contributions
+    const futureContributions: number[] = Array.from({ length: 3 }, (_, i) => this.contributors.length + i + 1);
+    this.contributionForecast = futureContributions.map((x) => slope * x + intercept);
+    console.log('Contributions forecast:', this.contributionForecast);
   }
 
   // Function to generate distinct colors for each user

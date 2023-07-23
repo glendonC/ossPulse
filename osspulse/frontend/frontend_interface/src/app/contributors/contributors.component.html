@@ -2,8 +2,8 @@
 <section class="description">
   <h2>Welcome to OSS Pulse</h2>
   <p>
-    OSS Pulse is a web application that provides insights into open-source software contributions on GitHub. 
-    This platform allows you to explore the top contributors and their contributions to various repositories. 
+    OSS Pulse is a web application that provides insights into open-source software contributions on GitHub.
+    This platform allows you to explore the top contributors and their contributions to various repositories.
     Stay up-to-date with the latest trends and visualize open-source activity with our powerful analytics tools.
   </p>
 </section>
@@ -31,24 +31,30 @@
   <canvas id="contributionsChart" width="400" height="200"></canvas>
 </section>
 
-
-
 <!-- Trend Analysis and Visualization Section -->
 <section class="trend-analysis">
   <h2>Trend Analysis and Visualization</h2>
   <p>
-    Our trend analysis feature allows you to explore trends in open-source contributions over time. 
+    Our trend analysis feature allows you to explore trends in open-source contributions over time.
     Visualize the growth of repositories, the most active contributors, and more with interactive charts and graphs.
   </p>
 
   <div>
-    <h2>Contributions Chart</h2>
-    <canvas id="contributionsChart" width="400" height="200"></canvas>
-  
-    <!-- Add data analysis results to the template -->
+    <h2>Contributions Stats</h2>
+    <!-- Display data analysis results -->
     <div>
       <p>Mean Contributions: {{ meanContributions }}</p>
       <p>Median Contributions: {{ medianContributions }}</p>
+    </div>
+
+    <!-- Display contribution forecast results -->
+    <div>
+      <h2>Contribution Forecast</h2>
+      <ul>
+        <li *ngFor="let forecast of contributionForecast; let i = index">
+          Year {{ i + 1 }}: {{ forecast }}
+        </li>
+      </ul>
     </div>
   </div>
 </section>
