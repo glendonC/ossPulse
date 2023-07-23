@@ -1,193 +1,213 @@
+/* Styles for contributors container */
 .contributors-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-  
-  .contributor-card {
-    background-color: #f1f1f1;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    width: 300px;
-  }
-  
-  .avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 15px;
-  }
-  
-  .contributor-info {
-    flex: 1;
-  }
-  
-  h3 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  p {
-    margin: 0;
-    font-size: 14px;
-  }
-  
-  .description, .trend-analysis {
-    text-align: center;
-    margin: 30px 0;
-  }
-  
-  .description h2, .trend-analysis h2 {
-    font-size: 24px;
-    font-weight: bold;
-  }
-  
-  .description p, .trend-analysis p {
-    font-size: 16px;
-    line-height: 1.6;
-  }
-  
-  /* Description and Trend Analysis styles ... (existing code) */
+display: flex;
+flex-wrap: wrap;
+gap: 20px;
+}
 
+/* Styles for contributor card */
+.contributor-card {
+background-color: #f1f1f1;
+border-radius: 8px;
+padding: 20px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+display: flex;
+align-items: center;
+width: 300px;
+}
+
+/* Styles for contributor avatar */
+.avatar {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+margin-right: 15px;
+}
+
+/* Styles for contributor information */
+.contributor-info {
+flex: 1;
+}
+
+/* Heading styles */
+h3 {
+margin: 0;
+font-size: 18px;
+font-weight: bold;
+}
+
+/* Paragraph styles */
+p {
+margin: 0;
+font-size: 14px;
+}
+
+/* Description and Trend Analysis section styles */
+.description, .trend-analysis {
+text-align: center;
+margin: 30px 0;
+}
+
+/* Heading styles for Description and Trend Analysis sections */
+.description h2, .trend-analysis h2 {
+font-size: 24px;
+font-weight: bold;
+}
+
+/* Paragraph styles for Description and Trend Analysis sections */
+.description p, .trend-analysis p {
+font-size: 16px;
+line-height: 1.6;
+}
+
+/* Chart section styles */
 .chart {
-    text-align: center;
-    margin: 30px 0;
-  }
-  
-  .chart h2 {
-    font-size: 24px;
-    font-weight: bold;
-  }
+text-align: center;
+margin: 30px 0;
+}
 
-  
-  .trend-analysis {
-    margin-top: 20px;
-  }
-  
-  .stats-card {
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-right: 10px;
-    width: 150px;
-  }
-  
-  .stats-card .card-label {
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .stats-card .card-value {
-    font-size: 24px;
-    text-align: center;
-    color: #4CAF50; /* Green color */
-  }
-  
-  .forecast-card {
-    margin-top: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    width: 300px;
-  }
-  
-  .forecast-card h2 {
-    font-weight: bold;
-  }
-  
-  .forecast-card ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .forecast-card li {
-    margin-bottom: 5px;
-  }
-  
+/* Heading styles for Chart section */
+.chart h2 {
+font-size: 24px;
+font-weight: bold;
+}
+
+/* Styles for trend analysis section */
+.trend-analysis {
+margin-top: 20px;
+}
+
+/* Styles for statistics card */
+.stats-card {
+display: inline-block;
+border: 1px solid #ccc;
+border-radius: 5px;
+padding: 10px;
+margin-right: 10px;
+width: 150px;
+}
+
+/* Styles for statistics card label */
+.stats-card .card-label {
+font-weight: bold;
+text-align: center;
+}
+
+/* Styles for statistics card value */
+.stats-card .card-value {
+font-size: 24px;
+text-align: center;
+color: #4CAF50; /* Green color */
+}
+
+/* Styles for forecast card */
+.forecast-card {
+margin-top: 20px;
+border: 1px solid #ccc;
+border-radius: 5px;
+padding: 10px;
+width: 300px;
+}
+
+/* Heading styles for forecast card */
+.forecast-card h2 {
+font-weight: bold;
+}
+
+/* Styles for forecast card list */
+.forecast-card ul {
+list-style-type: none;
+padding: 0;
+}
+
+/* Styles for forecast card list items */
+.forecast-card li {
+margin-bottom: 5px;
+}
 
 /* Custom styles for carousel controls */
 .carousel-control-prev,
 .carousel-control-next {
-  width: 50px;
-  height: 50px;
-  background-color: #7d8184; /* Background color */
-  border: 1px solid #7d8184; /* Border color */
-  border-radius: 50%; /* Rounded border */
-  opacity: 0.8; /* Opacity */
-  transition: opacity 0.2s ease-in-out; /* Transition effect */
-  margin: -140px;
-  top: 200px;
+width: 50px;
+height: 50px;
+background-color: #7d8184; /* Background color */
+border: 1px solid #7d8184; /* Border color */
+border-radius: 50%; /* Rounded border */
+opacity: 0.8; /* Opacity */
+transition: opacity 0.2s ease-in-out; /* Transition effect */
+margin: -140px;
+top: 200px;
 }
 
-/* On hover, increase the opacity to make the buttons more visible */
+/* Hover styles for carousel controls */
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
-  opacity: 1;
+opacity: 1;
 }
 
-/* Icon color */
+/* Styles for carousel control icons */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 19l-7-7 7-7'%3e%3c/path%3e%3c/svg%3e");
-  background-size: 100% 100%;
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin: 10px;
+background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 19l-7-7 7-7'%3e%3c/path%3e%3c/svg%3e");
+background-size: 100% 100%;
+display: inline-block;
+width: 10px;
+height: 10px;
+margin: 10px;
 }
 
+/* Styles for carousel control icons (next) */
 .carousel-control-next-icon {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 5l7 7-7 7'%3e%3c/path%3e%3c/svg%3e");
+background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 5l7 7-7 7'%3e%3c/path%3e%3c/svg%3e");
 }
 
-  
-  .section-title {
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 20px;
-    color: #333; /* You can change the color to your preference */
-  }
-  
-  .section-description {
-    font-size: 1rem;
-    text-align: center;
-    color: #666; /* You can change the color to your preference */
-  }
-  
-  .chart-type-selector {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  
-  .chart-type-selector label {
-    margin-right: 10px;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  .chart-type-selector select {
-    padding: 8px 15px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 16px;
-    background-color: #f8f9fa;
-    color: #212529;
-    cursor: pointer;
-    transition: border-color 0.2s ease-in-out;
-    width: 150px; /* Adjust the width as needed */
-  }
-  
-  .chart-type-selector select:focus {
-    outline: none;
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-  }
-  
+/* Section title styles */
+.section-title {
+font-size: 2rem;
+font-weight: bold;
+text-align: center;
+margin-bottom: 20px;
+color: #333; /* You can change the color to your preference */
+}
+
+/* Section description styles */
+.section-description {
+font-size: 1rem;
+text-align: center;
+color: #666; /* You can change the color to your preference */
+}
+
+/* Chart type selector styles */
+.chart-type-selector {
+display: flex;
+align-items: center;
+justify-content: center;
+margin-bottom: 20px;
+}
+
+/* Chart type label styles */
+.chart-type-selector label {
+margin-right: 10px;
+font-size: 16px;
+font-weight: bold;
+}
+
+/* Chart type select styles */
+.chart-type-selector select {
+padding: 8px 15px;
+border: 1px solid #ced4da;
+border-radius: 4px;
+font-size: 16px;
+background-color: #f8f9fa;
+color: #212529;
+cursor: pointer;
+transition: border-color 0.2s ease-in-out;
+width: 150px; /* Adjust the width as needed */
+}
+
+/* Chart type select focus styles */
+.chart-type-selector select:focus {
+outline: none;
+border-color: #80bdff;
+box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}

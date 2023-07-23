@@ -1,19 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Contributor } from '../models/contributors';
+import { ContributionForecast } from '../models/contributionforecase';
 import { Chart, registerables, ChartTypeRegistry } from 'chart.js';
+import { ContributorsService } from './contributors.service';
 import * as regression from 'regression';
 
-import { ContributorsService } from './contributors.service'; // Import the service
-
-// Define the DataPoint type
+// DataPoint -> Tuple of numbers
 type DataPoint = [number, number];
-
-
-interface ContributionForecast {
-  contributions: number;
-  rateOfChange: number;
-}
 
 @Component({
   selector: 'app-contributors',
@@ -21,14 +15,14 @@ interface ContributionForecast {
   styleUrls: ['./contributors.component.css']
 })
 export class ContributorsComponent implements OnInit {
-  contributors: Contributor[] = [];
-  chart: Chart | null = null; // Initialize chart property to null
-  meanContributions: number = 0;
-  medianContributions: number = 0;
-  groupedContributors: any[] = [];
-  contributionForecast: ContributionForecast[] = [];
+  contributors: Contributor[] = []; // Stores contributor data
+  chart: Chart | null = null; // stores chart instance
+  meanContributions: number = 0; // stores mean contribution value
+  medianContributions: number = 0; // stores median contribution value
+  groupedContributors: any[] = []; // groups contributors into list
+  contributionForecast: ContributionForecast[] = []; // groups forecasts into list
 
-  // Function to group contributors into sets of 3 (you can adjust this number as desired)
+  // Groups contributors into certain size for the carousel effect
   groupContributors(contributors: any[], groupSize: number): any[] {
     const groupedContributors = [];
     for (let i = 0; i < contributors.length; i += groupSize) {
@@ -37,17 +31,14 @@ export class ContributorsComponent implements OnInit {
     return groupedContributors;
   }
 
-  
-  // Define the valid chart types
+  // Define types of charts to choose from
   validChartTypes: Array<keyof ChartTypeRegistry> = ['bar', 'line', 'pie', 'doughnut', 'polarArea'];
 
-  // Default chart type
+  // Default type of chart
   chartType: keyof ChartTypeRegistry = 'bar';
 
   constructor(private http: HttpClient, private contributorsService: ContributorsService) {
-    // Register Chart.js modules (necessary for some chart types)
     Chart.register(...registerables);
-    
   }
 
   ngOnInit(): void {
@@ -55,10 +46,10 @@ export class ContributorsComponent implements OnInit {
     this.contributorsService.getContributors().subscribe(
       (data) => {
         this.contributors = data;
-        this.groupedContributors = this.groupContributors(this.contributors, 3);
-        this.createChart();
-        this.predictContributionsTrends();
-        this.contributionForecast = this.calculateContributionForecast(this.contributionForecast);
+        this.groupedContributors = this.groupContributors(this.contributors, 3); // Group contributors into sets of 3 at a time
+        this.createChart(); // make the contributor chart
+        this.predictContributionsTrends(); // predict future contributions by leveraging linear regression
+        this.contributionForecast = this.calculateContributionForecast(this.contributionForecast); // calculate the rate of change for each contribution forecast
       },
       (error) => {
         console.error('Error fetching contributors:', error);
@@ -66,29 +57,25 @@ export class ContributorsComponent implements OnInit {
     );
   }
 
+  // Function to create the Contribution chart
   createChart(): void {
-    // Chart.js code to create the visualization
     const ctx = document.getElementById('contributionsChart') as HTMLCanvasElement;
-
     // Destroy the previous chart if it exists to avoid conflicts
     if (this.chart) {
       this.chart.destroy();
     }
-
     const contributionsData = this.contributors.map((contributor) => contributor.contributions);
     const contributorsNames = this.contributors.map((contributor) => contributor.login);
-
-    const colors = this.generateDistinctColors(this.contributors.length);
-
+    const colors = this.generateDistinctColors(this.contributors.length); // Generate distinct colors for each user
     this.chart = new Chart(ctx, {
-      type: this.chartType, // Use the selected chart type
+      type: this.chartType, // use selected chart type
       data: {
         labels: contributorsNames,
         datasets: [
           {
             label: 'Contributions',
             data: contributionsData,
-            backgroundColor: colors, // Use distinct colors for each user
+            backgroundColor: colors, // apply distinct color to each yser
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1,
           },
@@ -104,21 +91,19 @@ export class ContributorsComponent implements OnInit {
     });
   }
 
-  
-
+  // Function to predict contributions by leveraging linear regression
   predictContributionsTrends(): void {
-    // Example: Calculate mean and median of contributions
-    const contributionsData = this.contributors.map((contributor) => contributor.contributions);
-    this.meanContributions = contributionsData.reduce((a, b) => a + b, 0) / contributionsData.length;
-    this.medianContributions = contributionsData.sort((a, b) => a - b)[Math.floor(contributionsData.length / 2)];
-  
-    // Perform linear regression on contributions data
+    const contributionsData = this.contributors.map((contributor) => contributor.contributions); // get contributions data
+    this.meanContributions = contributionsData.reduce((a, b) => a + b, 0) / contributionsData.length; // calculate mean contributions
+    this.medianContributions = contributionsData.sort((a, b) => a - b)[Math.floor(contributionsData.length / 2)]; // calculate median contributions
+
+    // perform linear regression
     const dataPoints: DataPoint[] = contributionsData.map((contribution, index) => [index, contribution]);
     const result = regression.linear(dataPoints);
     const slope = result.equation[0];
     const intercept = result.equation[1];
-  
-    // Predict future contributions
+
+    // predict future contribution stats and the rate of change between those years
     if (contributionsData.length >= 2) {
       const futureContributions: number[] = Array.from({ length: 3 }, (_, i) => this.contributors.length + i);
       this.contributionForecast = futureContributions.map((x, i) => {
@@ -127,37 +112,26 @@ export class ContributorsComponent implements OnInit {
         return { contributions: forecast, rateOfChange: rateOfChange };
       });
     }
-      console.log('Contributions forecast:', this.contributionForecast);
+    console.log('Contributions forecast:', this.contributionForecast);
   }
+
+  // calculates rate of change between forecasted years
   calculateContributionForecast(contributions: ContributionForecast[]): ContributionForecast[] {
     const forecastData: ContributionForecast[] = [];
-  
     for (let i = 1; i < contributions.length; i++) {
       const currentYearContribution = contributions[i].contributions;
       const previousYearContribution = contributions[i - 1].contributions;
-  
       const rateOfChange = ((currentYearContribution - previousYearContribution) / previousYearContribution) * 100;
       forecastData.push({ contributions: currentYearContribution, rateOfChange: rateOfChange });
     }
-  
     return forecastData;
   }
-  
-  
-  
-  
-  
-  
-  
-  
 
-  
-
-  // Function to generate distinct colors for each user
+  // Function to generate distinct color for each contributing user
   generateDistinctColors(count: number): string[] {
     const colors: string[] = [];
     for (let i = 0; i < count; i++) {
-      const hue = (i * 137.5) % 360; // Adjust the hue to create distinct colors
+      const hue = (i * 137.5) % 360;
       colors.push(`hsl(${hue}, 70%, 50%)`);
     }
     return colors;
