@@ -15,19 +15,30 @@
 - Node.js and npm
 
 
-## Installing
-- Clone the repository:
-- git clone [<url-to-your-repo>](https://github.com/glendonC/ossPulse.git)
+## Installing and Setup
+1. Clone the repository:
+  - git clone [<url-to-your-repo>](https://github.com/glendonC/ossPulse.git)
 
 ### Backend Setup:
-cd osspulse/backend
-pip install -r requirements.txt
-python main.py
+2. cd osspulse/backend
+3. Create a new virtual environment (recommended)
+4. Activate the virtual environment ([my favorite tutorial](https://tutorial.djangogirls.org/en/django_installation/))
+5. pip install -r requirements.txt
+6. python main.py
+
+Return to the root directory, HOWEVER
+
+### Environment Variables
+6.5. In order to use certain features, you will need to set up environment variables. Create a new file named `.env` in the backend directory and add the following:
+- SECRET_KEY=your_secret_key_here
+- API_KEY=your_api_key_here
 
 ### Frontend Setup:
-cd osspulse/frontend_interface
-npm install
-ng serve
+7. cd osspulse/frontend_interface
+8. npm install
+9. ng serve
+
+
 
 ## Running Tests
 - Currently, no tests are available for this application yet.
