@@ -9,6 +9,12 @@ import { ContributorsService } from './contributors.service'; // Import the serv
 // Define the DataPoint type
 type DataPoint = [number, number];
 
+
+interface ContributionForecast {
+  contributions: number;
+  rateOfChange: number;
+}
+
 @Component({
   selector: 'app-contributors',
   templateUrl: './contributors.component.html',
@@ -19,8 +25,19 @@ export class ContributorsComponent implements OnInit {
   chart: Chart | null = null; // Initialize chart property to null
   meanContributions: number = 0;
   medianContributions: number = 0;
-  contributionForecast: number[] = [];
+  groupedContributors: any[] = [];
+  contributionForecast: ContributionForecast[] = [];
 
+  // Function to group contributors into sets of 3 (you can adjust this number as desired)
+  groupContributors(contributors: any[], groupSize: number): any[] {
+    const groupedContributors = [];
+    for (let i = 0; i < contributors.length; i += groupSize) {
+      groupedContributors.push(contributors.slice(i, i + groupSize));
+    }
+    return groupedContributors;
+  }
+
+  
   // Define the valid chart types
   validChartTypes: Array<keyof ChartTypeRegistry> = ['bar', 'line', 'pie', 'doughnut', 'polarArea'];
 
@@ -30,6 +47,7 @@ export class ContributorsComponent implements OnInit {
   constructor(private http: HttpClient, private contributorsService: ContributorsService) {
     // Register Chart.js modules (necessary for some chart types)
     Chart.register(...registerables);
+    
   }
 
   ngOnInit(): void {
@@ -37,8 +55,10 @@ export class ContributorsComponent implements OnInit {
     this.contributorsService.getContributors().subscribe(
       (data) => {
         this.contributors = data;
+        this.groupedContributors = this.groupContributors(this.contributors, 3);
         this.createChart();
         this.predictContributionsTrends();
+        this.contributionForecast = this.calculateContributionForecast(this.contributionForecast);
       },
       (error) => {
         console.error('Error fetching contributors:', error);
@@ -84,23 +104,54 @@ export class ContributorsComponent implements OnInit {
     });
   }
 
+  
+
   predictContributionsTrends(): void {
     // Example: Calculate mean and median of contributions
     const contributionsData = this.contributors.map((contributor) => contributor.contributions);
     this.meanContributions = contributionsData.reduce((a, b) => a + b, 0) / contributionsData.length;
     this.medianContributions = contributionsData.sort((a, b) => a - b)[Math.floor(contributionsData.length / 2)];
-
+  
     // Perform linear regression on contributions data
     const dataPoints: DataPoint[] = contributionsData.map((contribution, index) => [index, contribution]);
     const result = regression.linear(dataPoints);
     const slope = result.equation[0];
     const intercept = result.equation[1];
-
+  
     // Predict future contributions
-    const futureContributions: number[] = Array.from({ length: 3 }, (_, i) => this.contributors.length + i + 1);
-    this.contributionForecast = futureContributions.map((x) => slope * x + intercept);
-    console.log('Contributions forecast:', this.contributionForecast);
+    if (contributionsData.length >= 2) {
+      const futureContributions: number[] = Array.from({ length: 3 }, (_, i) => this.contributors.length + i);
+      this.contributionForecast = futureContributions.map((x, i) => {
+        const forecast = slope * x + intercept;
+        const rateOfChange = ((forecast - contributionsData[contributionsData.length - 1]) / contributionsData[contributionsData.length - 1]) * 100;
+        return { contributions: forecast, rateOfChange: rateOfChange };
+      });
+    }
+      console.log('Contributions forecast:', this.contributionForecast);
   }
+  calculateContributionForecast(contributions: ContributionForecast[]): ContributionForecast[] {
+    const forecastData: ContributionForecast[] = [];
+  
+    for (let i = 1; i < contributions.length; i++) {
+      const currentYearContribution = contributions[i].contributions;
+      const previousYearContribution = contributions[i - 1].contributions;
+  
+      const rateOfChange = ((currentYearContribution - previousYearContribution) / previousYearContribution) * 100;
+      forecastData.push({ contributions: currentYearContribution, rateOfChange: rateOfChange });
+    }
+  
+    return forecastData;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
 
   // Function to generate distinct colors for each user
   generateDistinctColors(count: number): string[] {

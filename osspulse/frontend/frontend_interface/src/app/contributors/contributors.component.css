@@ -64,5 +64,130 @@
   }
 
   
+  .trend-analysis {
+    margin-top: 20px;
+  }
+  
+  .stats-card {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-right: 10px;
+    width: 150px;
+  }
+  
+  .stats-card .card-label {
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .stats-card .card-value {
+    font-size: 24px;
+    text-align: center;
+    color: #4CAF50; /* Green color */
+  }
+  
+  .forecast-card {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 300px;
+  }
+  
+  .forecast-card h2 {
+    font-weight: bold;
+  }
+  
+  .forecast-card ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .forecast-card li {
+    margin-bottom: 5px;
+  }
+  
 
+/* Custom styles for carousel controls */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 50px;
+  height: 50px;
+  background-color: #7d8184; /* Background color */
+  border: 1px solid #7d8184; /* Border color */
+  border-radius: 50%; /* Rounded border */
+  opacity: 0.8; /* Opacity */
+  transition: opacity 0.2s ease-in-out; /* Transition effect */
+  margin: -140px;
+  top: 200px;
+}
+
+/* On hover, increase the opacity to make the buttons more visible */
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  opacity: 1;
+}
+
+/* Icon color */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 19l-7-7 7-7'%3e%3c/path%3e%3c/svg%3e");
+  background-size: 100% 100%;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 10px;
+}
+
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 5l7 7-7 7'%3e%3c/path%3e%3c/svg%3e");
+}
+
+  
+  .section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333; /* You can change the color to your preference */
+  }
+  
+  .section-description {
+    font-size: 1rem;
+    text-align: center;
+    color: #666; /* You can change the color to your preference */
+  }
+  
+  .chart-type-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .chart-type-selector label {
+    margin-right: 10px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .chart-type-selector select {
+    padding: 8px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    color: #212529;
+    cursor: pointer;
+    transition: border-color 0.2s ease-in-out;
+    width: 150px; /* Adjust the width as needed */
+  }
+  
+  .chart-type-selector select:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
   
