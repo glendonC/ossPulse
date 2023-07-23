@@ -1,10 +1,14 @@
 # OSS Pulse
-- OSS Pulse aims to track and analyze open source contributions from around the globe. It provides insights into popular repositories, top contributors, active regions, languages used, and much more.
+- OSS Pulse aims to track and analyze open-source contributions from around the globe. Gain valuable insights into the latest trends and top contributors within the vibrant open-source community. Visualize contribution data through stunning charts and forecasts, empowering you to make informed decisions and stay ahead in the ever-evolving landscape of open-source development.
+
 
 ## Features:
-- Track and analyze open source contributions.
-- Visualize trends and forecasts in open source contributions.
-- 
+- **Real-time Contribution Tracking**: Stay up-to-date with the latest open source contributions as they happen, providing real-time insights into project activity and engagement.
+- **Comprehensive Data Visualization**: Visualize open source contribution trends over time using dynamic and interactive charts. Understand user activity, repository popularity, and language usage patterns effortlessly.
+- **Contribution Forecasting**: Utilize AI-driven contribution forecasting to predict future trends and anticipate potential surges in project participation.
+- **Open Source and Community-driven**: As an open source project itself, OSS Pulse welcomes contributions from the community, ensuring constant improvements and innovation.
+
+  
 # Prerequisites
 - Python 3.x
 - Angular
