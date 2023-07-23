@@ -2,41 +2,45 @@
 - OSS Pulse aims to track and analyze open source contributions from around the globe. It provides insights into popular repositories, top contributors, active regions, languages used, and much more.
 
 ## Features:
-
+- Track and analyze open source contributions.
+- Visualize trends and forecasts in open source contributions.
+- 
 # Prerequisites
-Python 3.x
-Angular
-Node.js and npm
+- Python 3.x
+- Angular
+- Node.js and npm
 
 
 ## Installing
-Clone the repository:
-git clone <url-to-your-repo>
+- Clone the repository:
+- git clone [<url-to-your-repo>](https://github.com/glendonC/ossPulse.git)
 
 ### Backend Setup:
-cd your_project_directory/flask_app
+cd osspulse/backend
 pip install -r requirements.txt
 python main.py
 
 ### Frontend Setup:
-cd your_project_directory/angular_app
+cd osspulse/frontend_interface
 npm install
 ng serve
 
 ## Running Tests
-Explain how to run the automated tests for this system.
+- Currently, no tests are available for this application yet.
 
 ## Deployment
-Add additional notes about how to deploy this on a live system.
+- Currently only runs on local servers.
 
 ## Built With
-Python
-Flask
-Angular
+- Python (Backend development)
+- Flask (Python web framework)
+- Angular (Frontend development)
+- Bootstrap (Frontend UI)
+- Chart.js (JS Visualization Library)
 
 ## Contributing
-Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
+- Please read CONTRIBUTING.md for details.
 
 ## Licensing
-This project is licensed under the MIT License - see the LICENSE.md file for details.
+- This project is licensed under the MIT License - see the LICENSE.md file for details.
 
